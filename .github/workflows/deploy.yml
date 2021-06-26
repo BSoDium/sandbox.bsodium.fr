@@ -12,6 +12,7 @@ jobs:
           ./build.sh
 
   test:
+    needs: build
     runs-on: "ubuntu-latest"
     steps:
       - uses: actions/checkout@v1
@@ -21,6 +22,7 @@ jobs:
           ./run-tests.sh
 
   deployment:
+    needs: test
     environment: ${{ github.event.deployment.environment }}
     runs-on: "ubuntu-latest"
     steps:
