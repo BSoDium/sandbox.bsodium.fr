@@ -2,6 +2,24 @@ name: "Deploy"
 on: ["deployment"]
 
 jobs:
+  build:
+    runs-on: "ubuntu-latest"
+    steps:
+      - uses: actions/checkout@v1
+      - name: "Build project"
+        run: |
+          chmod +x ./build.sh
+          ./build.sh
+
+  test:
+    runs-on: "ubuntu-latest"
+    steps:
+      - uses: actions/checkout@v1
+      - name: "Run tests"
+        run: |
+          chmod +x ./run-tests.sh
+          ./run-tests.sh
+
   deployment:
     environment: ${{ github.event.deployment.environment }}
     runs-on: "ubuntu-latest"
@@ -16,13 +34,10 @@ jobs:
           token: "${{ github.token }}"
 
       - name: "Set up ssh keys"
-        env:
-          PORT: ${{ secrets.REMOTE_PORT }}
-          HOST: ${{ secrets.REMOTE_HOST }}
         run: |
           mkdir ~/.ssh
           touch ~/.ssh/known_hosts
-          ssh-keyscan -p ${{ env.PORT }} -H ${{ env.HOST }} >> ~/.ssh/known_hosts
+          ssh-keyscan -p 6450 -H sftp.l3alr0g.fr >> ~/.ssh/known_hosts
 
       - name: "Set up lftp"
         run: |
