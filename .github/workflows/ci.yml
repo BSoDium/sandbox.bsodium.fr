@@ -1,11 +1,13 @@
 name: "Run tests"
 # Currently does nothing
 
-on: 
+on:
   push:
-    branches: [ *[!main]* ]
+    branches-ignore:
+      - master
   pull_request:
-    branches: [ *[!main]* ]
+    branches-ignore:
+      - master
 
 jobs:
   build:
