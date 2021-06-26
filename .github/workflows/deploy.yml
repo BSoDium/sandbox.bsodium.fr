@@ -41,10 +41,26 @@ jobs:
           touch ~/.ssh/known_hosts
           ssh-keyscan -p 6450 -H sftp.l3alr0g.fr >> ~/.ssh/known_hosts
 
+      - name: "Cache lftp"
+        uses: actions/cache@v2
+        id: cache-lftp
+        with:
+          path: "~/lftp"
+          key: ${{ secrets.LFTP_VERSION }}
+
       - name: "Set up lftp"
+        env:
+          CACHE_HIT: ${{ steps.cache-lftp.outputs.cache_hit }}
+          LFTP_VERSION: ${{ secrets.LFTP_VERSION }}
         run: |
-          sudo apt-get update
-          sudo apt-get install lftp
+          if [[ "$CACHE_HIT" == 'true' ]]; then
+            sudo cp -v -f -r ~/lftp/* /
+          else
+            sudo apt-get update
+            sudo apt-get install -y lftp="$LFTP_VERSION"
+            mkdir -p ~/lftp
+            sudo dpkg -L lftp | while IFS= read -r f; do if test -f $f; then echo $f; fi; done | xargs cp --parents --target-directory ~/lftp/
+          fi
 
       - uses: actions/checkout@v1
       - name: "Deploy ${{ github.event.deployment.environment }}"
