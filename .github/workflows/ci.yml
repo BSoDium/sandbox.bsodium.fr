@@ -1,0 +1,27 @@
+name: "Run tests"
+# Currently does nothing
+
+on: 
+  push:
+    branches: [ *[!main]* ]
+  pull_request:
+    branches: [ *[!main]* ]
+
+jobs:
+  build:
+    runs-on: "ubuntu-latest"
+    steps:
+      - uses: actions/checkout@v1
+      - name: "Build project"
+        run: |
+          chmod +x ./build.sh
+          ./build.sh
+
+  test:
+    runs-on: "ubuntu-latest"
+    steps:
+      - uses: actions/checkout@v1
+      - name: "Run tests"
+        run: |
+          chmod +x ./run-tests.sh
+          ./run-tests.sh

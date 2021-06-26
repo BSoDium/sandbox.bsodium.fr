@@ -1,0 +1,73 @@
+name: "Deploy"
+on: ["deployment"]
+
+jobs:
+  build:
+    runs-on: "ubuntu-latest"
+    steps:
+      - uses: actions/checkout@v1
+      - name: "Build project"
+        run: |
+          chmod +x ./build.sh
+          ./build.sh
+
+  test:
+    runs-on: "ubuntu-latest"
+    steps:
+      - uses: actions/checkout@v1
+      - name: "Run tests"
+        run: |
+          chmod +x ./run-tests.sh
+          ./run-tests.sh
+
+  deployment:
+    environment: ${{ github.event.deployment.environment }}
+    runs-on: "ubuntu-latest"
+    steps:
+      - name: "Checkout"
+        uses: "actions/checkout@v1"
+
+      - name: "Deployment pending"
+        uses: "deliverybot/deployment-status@master"
+        with:
+          state: "pending"
+          token: "${{ github.token }}"
+
+      - name: "Set up ssh keys"
+        run: |
+          mkdir ~/.ssh
+          touch ~/.ssh/known_hosts
+          ssh-keyscan -p 6450 -H sftp.l3alr0g.fr >> ~/.ssh/known_hosts
+
+      - name: "Set up lftp"
+        run: |
+          sudo apt-get update
+          sudo apt-get install lftp
+
+      - uses: actions/checkout@v1
+      - name: "Deploy ${{ github.event.deployment.environment }}"
+        env:
+          PORT: ${{ secrets.REMOTE_PORT }}
+          USER: ${{ secrets.REMOTE_USER }}
+          PASSWORD: ${{ secrets.REMOTE_PSWD }}
+          HOST: ${{ secrets.REMOTE_HOST }}
+          TARGETDIR: ${{ secrets.REMOTE_TARGET }}
+        run: |
+          echo "task - ${{ github.event.deployment.task }}"
+          echo "environment - ${{ github.event.deployment.environment }}"
+          echo "payload - ${{ github.event.deployment.payload }}"
+          lftp -p ${{ env.PORT }} sftp://${{ env.USER }}:${{ env.PASSWORD }}@${{ env.HOST }} -e 'mirror -v -R --exclude .git/ --exclude .github/ --exclude README.md ./ ${{ env.TARGETDIR }}; bye'
+
+      - name: "Deployment success"
+        if: success()
+        uses: "deliverybot/deployment-status@master"
+        with:
+          state: "success"
+          token: "${{ github.token }}"
+
+      - name: "Deployment failure"
+        if: failure()
+        uses: "deliverybot/deployment-status@master"
+        with:
+          state: "failure"
+          token: "${{ github.token }}"
