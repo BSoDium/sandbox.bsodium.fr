@@ -1,0 +1,9 @@
+production:
+  environment: production
+  required_contexts: ["ci"]
+  production_environment: true
+
+staging:
+  environment: staging
+  auto_deploy_on: refs/heads/master
+  production_environment: false

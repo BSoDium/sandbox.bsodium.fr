@@ -1,0 +1,58 @@
+name: "Deploy"
+on: ["deployment"]
+
+jobs:
+  deployment:
+    environment: ${{ github.event.deployment.environment }}
+    runs-on: "ubuntu-latest"
+    steps:
+      - name: "Checkout"
+        uses: "actions/checkout@v1"
+
+      - name: "Deployment pending"
+        uses: "deliverybot/deployment-status@master"
+        with:
+          state: "pending"
+          token: "${{ github.token }}"
+
+      - name: "Set up ssh keys"
+        env:
+          PORT: ${{ secrets.REMOTE_PORT }}
+          HOST: ${{ secrets.REMOTE_HOST }}
+        run: |
+          mkdir ~/.ssh
+          touch ~/.ssh/known_hosts
+          ssh-keyscan -p ${{ env.PORT }} -H ${{ env.HOST }} >> ~/.ssh/known_hosts
+
+      - name: "Set up lftp"
+        run: |
+          sudo apt-get update
+          sudo apt-get install lftp
+
+      - uses: actions/checkout@v1
+      - name: "Deploy ${{ github.event.deployment.environment }}"
+        env:
+          PORT: ${{ secrets.REMOTE_PORT }}
+          USER: ${{ secrets.REMOTE_USER }}
+          PASSWORD: ${{ secrets.REMOTE_PSWD }}
+          HOST: ${{ secrets.REMOTE_HOST }}
+          TARGETDIR: ${{ secrets.REMOTE_TARGET }}
+        run: |
+          echo "task - ${{ github.event.deployment.task }}"
+          echo "environment - ${{ github.event.deployment.environment }}"
+          echo "payload - ${{ github.event.deployment.payload }}"
+          lftp -p ${{ env.PORT }} sftp://${{ env.USER }}:${{ env.PASSWORD }}@${{ env.HOST }} -e 'mirror -v -R --exclude .git/ --exclude .github/ --exclude README.md ./ ${{ env.TARGETDIR }}; bye'
+
+      - name: "Deployment success"
+        if: success()
+        uses: "deliverybot/deployment-status@master"
+        with:
+          state: "success"
+          token: "${{ github.token }}"
+
+      - name: "Deployment failure"
+        if: failure()
+        uses: "deliverybot/deployment-status@master"
+        with:
+          state: "failure"
+          token: "${{ github.token }}"
