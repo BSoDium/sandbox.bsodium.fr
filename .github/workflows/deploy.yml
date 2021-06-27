@@ -57,6 +57,7 @@ jobs:
             sudo dpkg -L lftp | while IFS= read -r f; do if test -f $f; then echo $f; fi; done | xargs cp --parents --target-directory ~/lftp/
           fi
 
+      - uses: actions/checkout@v1
       - name: "Build page"
         run: |
           rm -rf node_modules && yarn install --frozen-lockfile
