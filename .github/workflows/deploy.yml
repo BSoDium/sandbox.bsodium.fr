@@ -69,14 +69,14 @@ jobs:
           echo "task - ${{ github.event.deployment.task }}"
           echo "environment - ${{ github.event.deployment.environment }}"
           echo "payload - ${{ github.event.deployment.payload }}"
-          lftp -p ${{ env.PORT }} sftp://${{ env.USER }}:${{ env.PASSWORD }}@${{ env.HOST }} -e 'mirror -v -R --exclude .git/ --exclude .gitignore --exclude .gitattributes --exclude .github/ --exclude README.md ./ ${{ env.target }}; bye'
+          lftp -p ${{ env.PORT }} sftp://${{ env.USER }}:${{ env.PASSWORD }}@${{ env.HOST }} -e 'mirror -v -R --exclude .git/ --exclude .gitignore --exclude .gitattributes --exclude .github/ --exclude README.md ./ ${{ secrets.REMOTE_TARGET }}; bye'
 
       - name: "Deployment success"
         if: success()
         uses: "deliverybot/deployment-status@master"
         with:
           state: "success"
-          environment-url: ${{ env.url }}
+          environment-url: ${{ secrets.ENV_URL }}
           token: "${{ github.token }}"
 
       - name: "Deployment failure"
