@@ -2,8 +2,22 @@ production:
   environment: production
   required_contexts: ["ci"]
   production_environment: true
+  payload:
+    url: http://sandbox.l3alr0g.fr/
+    target: /var/www/sandbox.l3alr0g.fr
 
 staging:
   environment: staging
   auto_deploy_on: refs/heads/master
   production_environment: false
+  payload:
+    url: http://dev.sandbox.l3alr0g.fr/
+    target: /var/www/dev.sandbox.l3alr0g.fr
+
+review:
+  environment: pr${{ pr }}
+  transient_environment: true
+  production_environment: false
+  payload:
+    url: http://dev.sandbox.l3alr0g.fr/pr${{ pr }}
+    target: /var/www/dev.sandbox.l3alr0g.fr/pr${{ pr }}
