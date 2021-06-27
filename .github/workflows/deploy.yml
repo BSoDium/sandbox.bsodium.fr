@@ -57,6 +57,9 @@ jobs:
             sudo dpkg -L lftp | while IFS= read -r f; do if test -f $f; then echo $f; fi; done | xargs cp --parents --target-directory ~/lftp/
           fi
 
+      - name: "Build page"
+        run: yarn run build
+
       - uses: actions/checkout@v1
       - name: "Deploy ${{ github.event.deployment.environment }}"
         env:
@@ -69,7 +72,7 @@ jobs:
           echo "task - ${{ github.event.deployment.task }}"
           echo "environment - ${{ github.event.deployment.environment }}"
           echo "payload - ${{ github.event.deployment.payload }}"
-          lftp -p ${{ env.PORT }} sftp://${{ env.USER }}:${{ env.PASSWORD }}@${{ env.HOST }} -e 'mirror -v -R --exclude .git/ --exclude .gitignore --exclude .gitattributes --exclude .github/ --exclude README.md ./ ${{ secrets.REMOTE_TARGET }}; bye'
+          lftp -p ${{ env.PORT }} sftp://${{ env.USER }}:${{ env.PASSWORD }}@${{ env.HOST }} -e 'mirror -v -R --delete --exclude .git/ --exclude .gitignore --exclude .gitattributes --exclude .github/ --exclude README.md ./build/ ${{ secrets.REMOTE_TARGET }}; bye'
 
       - name: "Deployment success"
         if: success()
