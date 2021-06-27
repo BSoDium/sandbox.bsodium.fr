@@ -10,17 +10,16 @@ on:
       - master
 
 jobs:
-  build:
+  ci:
     runs-on: "ubuntu-latest"
-    steps:
-      - uses: actions/checkout@v1
-      - name: "Build project"
-        run: echo "ok"
 
-  test:
-    needs: build
-    runs-on: "ubuntu-latest"
     steps:
       - uses: actions/checkout@v1
-      - name: "Run tests"
-        run: echo "ok"
+      - name: "Continuous integration checks"
+        uses: actions/setup-node@v2
+        with:
+          node-version: 16.x
+      - run: |
+          npm ci
+          npm run build --if-present
+          npm test
