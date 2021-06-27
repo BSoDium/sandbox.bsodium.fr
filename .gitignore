@@ -104,4 +104,4 @@ dist
 .tern-port
 
 # backup from previous version
-.backup/
+.old/
