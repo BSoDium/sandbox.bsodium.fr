@@ -17,7 +17,7 @@ jobs:
           npm test
 
   deployment:
-    needs: ci
+    needs: check
     environment: ${{ github.event.deployment.environment }}
     runs-on: "ubuntu-latest"
     steps:
