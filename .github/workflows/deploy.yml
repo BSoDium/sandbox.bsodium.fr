@@ -81,6 +81,7 @@ jobs:
         uses: "deliverybot/deployment-status@master"
         with:
           state: "success"
+          environment-url: ${{ secrets.ENV_URL }}
           token: "${{ github.token }}"
 
       - name: "Deployment failure"
