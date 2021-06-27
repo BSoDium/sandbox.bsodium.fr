@@ -58,12 +58,6 @@ jobs:
           fi
 
       - uses: actions/checkout@v1
-      - name: "Build page"
-        run: |
-          rm -rf node_modules && yarn install --frozen-lockfile
-          yarn run build --if-present
-
-      - uses: actions/checkout@v1
       - name: "Deploy ${{ github.event.deployment.environment }}"
         env:
           PORT: ${{ secrets.REMOTE_PORT }}
@@ -75,6 +69,8 @@ jobs:
           echo "task - ${{ github.event.deployment.task }}"
           echo "environment - ${{ github.event.deployment.environment }}"
           echo "payload - ${{ github.event.deployment.payload }}"
+          rm -rf node_modules && yarn install --frozen-lockfile
+          yarn run build --if-present
           lftp -p ${{ env.PORT }} sftp://${{ env.USER }}:${{ env.PASSWORD }}@${{ env.HOST }} -e 'mirror -v -R --delete --exclude .git/ --exclude .gitignore --exclude .gitattributes --exclude .github/ --exclude README.md ./build/ ${{ secrets.REMOTE_TARGET }}; bye'
 
       - name: "Deployment success"
