@@ -58,7 +58,9 @@ jobs:
           fi
 
       - name: "Build page"
-        run: yarn run build
+        run: |
+          rm -rf node_modules && yarn install --frozen-lockfile
+          yarn run build --if-present
 
       - uses: actions/checkout@v1
       - name: "Deploy ${{ github.event.deployment.environment }}"
