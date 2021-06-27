@@ -2,7 +2,7 @@ name: "Deploy"
 on: ["deployment"]
 
 jobs:
-  ci:
+  check:
     runs-on: "ubuntu-latest"
 
     steps:
