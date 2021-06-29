@@ -28,6 +28,7 @@ jobs:
         uses: "deliverybot/deployment-status@master"
         with:
           state: "pending"
+          environment-url: ${{ secrets.ENV_URL }}
           token: "${{ github.token }}"
 
       - name: "Set up ssh keys"
@@ -86,4 +87,5 @@ jobs:
         uses: "deliverybot/deployment-status@master"
         with:
           state: "failure"
+          environment-url: ${{ secrets.ENV_URL }}
           token: "${{ github.token }}"
