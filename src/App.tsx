@@ -8,12 +8,10 @@ class App extends React.Component {
   render() {
     return (
       <main className="App">
-        <div className="App-container">
-          <Switch>
-            <Route exact path="/"><HomePage title="sandbox" /></Route>
-            <Route exact path="/login"></Route>
-          </Switch>
-        </div>
+        <Switch>
+          <Route exact path="/"><HomePage title="sandbox" /></Route>
+          <Route exact path="/login"></Route>
+        </Switch>
       </main>
     );
   }
