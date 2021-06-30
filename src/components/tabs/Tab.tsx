@@ -1,5 +1,7 @@
 import React from "react";
 
+import 'styles/tab.scss';
+
 class Tab extends React.Component<{ FrontText: String; SideText: String; id: string }> {
   render() {
     return (

@@ -1,6 +1,10 @@
 import React from "react";
-import Tab from '../components/tabs/Tab'
-import TabContent from '../components/tabs/TabContent'
+import Tab from 'components/tabs/Tab'
+import TabContent from 'components/tabs/TabContent'
+import ProjectsPage from 'components/github/ProjectsPage'
+import NewsPage from 'components/github/NewsPage'
+
+import 'styles/homepage.scss';
 
 class HomePage extends React.Component<{ title: string }> {
 
@@ -20,16 +24,18 @@ class HomePage extends React.Component<{ title: string }> {
               <Tab FrontText="Feedback" SideText="Bug reports" id="tab5" />
             </div>
             <div className="tab-body">
-              {/* <TabContent id="tab1" />
-              <TabContent id="tab2" />
-              <TabContent id="tab3" />
-              <TabContent id="tab4" />
-              <TabContent id="tab5" /> */}
+              <TabContent id="tab1" child={<ProjectsPage />} />
+              <TabContent id="tab2" child={<NewsPage />} />
+              <TabContent id="tab3" child={<NewsPage />} />
+              <TabContent id="tab4" child={<NewsPage />} />
+              <TabContent id="tab5" child={<NewsPage />} />
             </div>
           </div>
         </div>
+        <footer>
+          <p>© l3alr0g 2021 - 2022</p>
+        </footer>
       </div>
-
     );
   }
 }
