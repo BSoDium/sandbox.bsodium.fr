@@ -1,0 +1,49 @@
+/* 3D dynamic box */
+.dynbox {
+  width: 250px;
+  height: 30px;
+
+  text-align: center;
+
+  -webkit-transform-style: preserve-3d;
+  transform-style: preserve-3d;
+  transform: rotateX(0deg);
+
+  -webkit-transition: -webkit-transform 0.3s;
+  transition: transform 0.3s;
+}
+
+.dynbox:hover {
+  -webkit-transform: rotateX(90deg);
+  transform: rotateX(90deg);
+}
+
+.side,
+.front {
+  span {
+    font-size: 30px;
+    color: rgb(144, 205, 255);
+    text-transform: uppercase;
+  }
+  display: inherit;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  font-size: inherit;
+  position: absolute;
+  /* padding-top: 5px;
+  padding-bottom: 5px; */
+  text-transform: uppercase;
+  width: 250px;
+  height: 30px;
+}
+
+.front {
+  background: rgb(26, 32, 44);
+  -webkit-transform: translateZ(15px);
+  transform: translateZ(15px);
+}
+
+.side {
+  background: rgb(37, 46, 63);
+  -webkit-transform: rotateX(-90deg) translateZ(15px);
+  transform: rotateX(-90deg) translateZ(15px);
+}
