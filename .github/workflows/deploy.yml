@@ -70,7 +70,9 @@ jobs:
           echo "task - ${{ github.event.deployment.task }}"
           echo "environment - ${{ github.event.deployment.environment }}"
           echo "payload - ${{ github.event.deployment.payload }}"
-          lftp -p ${{ env.PORT }} sftp://${{ env.USER }}:${{ env.PASSWORD }}@${{ env.HOST }} -e 'mirror -v -R --exclude .git/ --exclude .gitignore --exclude .gitattributes --exclude .github/ --exclude README.md ./ ${{ secrets.REMOTE_TARGET }}; bye'
+          rm -rf node_modules && yarn install --frozen-lockfile
+          yarn run build --if-present
+          lftp -p ${{ env.PORT }} sftp://${{ env.USER }}:${{ env.PASSWORD }}@${{ env.HOST }} -e 'mirror -v -R --delete --exclude .git/ --exclude .gitignore --exclude .gitattributes --exclude .github/ --exclude README.md ./build/ ${{ secrets.REMOTE_TARGET }}; bye'
 
       - name: "Deployment success"
         if: success()

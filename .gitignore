@@ -105,3 +105,6 @@ dist
 
 # backup from previous version
 .old/
+
+# build folder
+build/

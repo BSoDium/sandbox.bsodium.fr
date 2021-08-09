@@ -1,0 +1,41 @@
+$dark: rgb(26, 32, 44);
+$dark-hover: rgba(35, 43, 59, 0.781);
+$light: rgba(60, 60, 65, 0.774);
+
+* {
+  text-decoration: none;
+  box-sizing: content-box;
+  list-style: none;
+  scroll-behavior: smooth;
+}
+
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+body::-webkit-scrollbar {
+  width: 11px;
+}
+
+body::-webkit-scrollbar-track {
+  background: var($light);
+}
+
+body::-webkit-scrollbar-thumb {
+  background-color: var($dark);
+  border: 1px solid var($light);
+}
+
+@media only screen /* smartphone */ and (min-device-width: 320px) and (max-device-width: 480px) {
+  .surface {
+    width: 90vw;
+    box-shadow: none; /* lighter for smartphone users */
+    backdrop-filter: none;
+    background: rgba(41, 48, 75, 0.678);
+  }
+}

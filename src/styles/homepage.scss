@@ -1,0 +1,69 @@
+@import "app";
+
+.bg {
+  height: 120vh; /* 100% of viewport height */
+  background: rgb(40, 43, 49);
+  background-attachment: fixed;
+  background-size: cover;
+  display: flex;
+  position: relative;
+  justify-content: center;
+  padding-top: 40px;
+  scrollbar-width: thin;
+  scrollbar-color: $dark $light;
+}
+
+.surface {
+  background: rgba(60, 63, 75, 0.24);
+  border-radius: 10px;
+  width: 70vw;
+  height: auto;
+  /* margin-top: 3%; */
+  position: absolute;
+  color: white;
+  font-size: 20px;
+  box-shadow: 0 2.8px 2.2px rgba(0, 0, 0, 0.034),
+    0 6.7px 5.3px rgba(0, 0, 0, 0.048), 0 12.5px 10px rgba(0, 0, 0, 0.06),
+    0 22.3px 17.9px rgba(0, 0, 0, 0.072), 0 41.8px 33.4px rgba(0, 0, 0, 0.086),
+    0 100px 80px rgba(0, 0, 0, 0.12);
+  // backdrop-filter: blur(2px);
+}
+
+.surface-header {
+  font-size: 80px;
+  font-family: "Major Mono Display", monospace;
+  text-transform: uppercase;
+  text-align: center;
+  border-radius: 10px 10px 0px 0px;
+  background: rgba(106, 106, 117, 0.616);
+  padding: 60px 10px;
+}
+
+.tab-menu {
+  a {
+    transition: 0.1s linear;
+    color: inherit;
+    font-family: "Nova Mono", monospace;
+  }
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  display: flex;
+  flex-wrap: wrap; /* not really usefull */
+  height: auto;
+  background: rgb(26, 32, 44);
+}
+
+.tab-body {
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  margin: 20px 10px 0px 10px;
+  padding: 10px;
+}
+
+footer {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  position: fixed;
+  color: rgba(255, 255, 255, 0.308);
+  bottom: -10px;
+  right: 10px;
+}
