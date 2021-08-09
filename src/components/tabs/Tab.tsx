@@ -2,7 +2,13 @@ import React from "react";
 
 import 'styles/tab.scss';
 
-class Tab extends React.Component<{ FrontText: String; SideText: String; id: string }> {
+type TabProps = {
+  FrontText: String;
+  SideText: String;
+  id: string
+}
+
+class Tab extends React.Component<TabProps> {
   render() {
     return (
       <a href={`#${this.props.id}`} >
