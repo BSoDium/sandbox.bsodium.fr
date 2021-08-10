@@ -1,9 +1,15 @@
-import React from "react";
+import React from 'react'
 
-import 'styles/tab.scss';
+import 'styles/tab.scss'
 
-class Tab extends React.Component<{ FrontText: String; SideText: String; id: string }> {
-  render() {
+type TabProps = {
+  FrontText: String;
+  SideText: String;
+  id: string
+}
+
+class Tab extends React.Component<TabProps> {
+  render () {
     return (
       <a href={`#${this.props.id}`} >
         <div className="dynbox">
@@ -11,8 +17,8 @@ class Tab extends React.Component<{ FrontText: String; SideText: String; id: str
           <div className="side">{this.props.SideText}</div>
         </div>
       </a >
-    );
+    )
   }
 }
 
-export default Tab;
+export default Tab
