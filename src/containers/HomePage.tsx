@@ -1,14 +1,13 @@
-import React from "react";
+import React from 'react'
 import Tab from 'components/tabs/Tab'
 import TabContent from 'components/tabs/TabContent'
 import ProjectsPage from 'components/github/ProjectsPage'
 import NewsPage from 'components/github/NewsPage'
 
-import 'styles/homepage.scss';
+import 'styles/homepage.scss'
 
 class HomePage extends React.Component<{ title: string }> {
-
-  render() {
+  render () {
     return (
       <div className="bg">
         <div className="surface">
@@ -36,8 +35,8 @@ class HomePage extends React.Component<{ title: string }> {
           <p>© l3alr0g 2021 - 2022</p>
         </footer>
       </div>
-    );
+    )
   }
 }
 
-export default HomePage;
+export default HomePage

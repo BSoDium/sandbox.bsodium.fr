@@ -1,12 +1,11 @@
-import React from 'react';
-import { Switch, Route } from 'react-router-dom';
-import HomePage from 'containers/HomePage';
+import React from 'react'
+import { Switch, Route } from 'react-router-dom'
+import HomePage from 'containers/HomePage'
 
-import 'styles/_app.scss';
-
+import 'styles/_app.scss'
 
 class App extends React.Component {
-  render() {
+  render () {
     return (
       <main className="App">
         <Switch>
@@ -14,8 +13,8 @@ class App extends React.Component {
           <Route exact path="/login"></Route>
         </Switch>
       </main>
-    );
+    )
   }
 }
 
-export default App;
+export default App

@@ -1,12 +1,11 @@
-import React from "react";
-
+import React from 'react'
 
 class NewsPage extends React.Component {
-  render() {
+  render () {
     return (
       <div>empty</div>
-    );
+    )
   }
 }
 
-export default NewsPage;
+export default NewsPage
