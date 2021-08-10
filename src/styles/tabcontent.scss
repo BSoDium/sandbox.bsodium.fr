@@ -5,3 +5,57 @@
 .tab:target {
   display: block;
 }
+
+
+.box {
+  span {
+    font-size: 20px;
+    color: rgb(144, 205, 255);
+    text-transform: uppercase;
+  }
+  display: inherit;
+  text-align: left;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 15px;
+  border-radius: 5px;
+  border: 1px solid rgba(255, 255, 255, 0.178);
+  background: rgb(27, 31, 44);
+  padding: 15px;
+  margin: 10px 0px;
+}
+
+.readme {
+  background-color: rgb(33, 38, 54);
+  padding: 0px 10px;
+  margin: 10px 0px;
+  border-radius: 5px;
+  max-height: 40vh;
+  overflow: auto;
+}
+.readme pre {
+  margin: 0%;
+}
+.readme::-webkit-scrollbar {
+  height: 11px;
+  width: 11px;
+}
+.readme::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0);
+  border-radius: 5px;
+}
+.readme::-webkit-scrollbar-thumb {
+  background-color: var(--light);
+  border-radius: 5px;
+}
+.readme::-webkit-scrollbar-thumb:hover {
+  background-color: var(--dark-hover);
+}
+.readme::-webkit-scrollbar-corner {
+  background: rgba(0, 0, 0, 0)
+}
+
+.readme-title {
+  font-size: 17px;
+  text-transform: uppercase;
+  color: rgb(141, 223, 168);
+}

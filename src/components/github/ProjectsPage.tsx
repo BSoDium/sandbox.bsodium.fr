@@ -39,6 +39,9 @@ class ProjectsPage extends React.Component<Props, State> {
                 description={project.description}
                 owner={project.owner}
                 link={project.link}
+                language={project.language}
+                stars={Number(project.stars)}
+                forks={Number(project.forks)}
                 key={i}
               />
             )

@@ -1,10 +1,15 @@
 import React from 'react'
+import ReactMarkdown from 'react-markdown'
+// import rehypeRaw from 'rehype-raw'
 
 interface Props {
   repo: string
   description?: string
   owner: string
   link: string
+  language: string
+  stars: number
+  forks: number
 }
 
 interface State {
@@ -40,14 +45,11 @@ class RepoCard extends React.Component<Props, State> {
         <p>{this.props.description}</p>
         <div className="readme-title">Readme</div>
         <div className="readme">
-          {/* the readme should be rendered as markdown not as code */}
-          <div className="code-block">
-            <pre>
-              <code>
-                {this.state.readme}
-              </code>
-            </pre>
-          </div>
+          <ReactMarkdown
+            // rehypePlugins={[rehypeRaw]}
+          >
+            {this.state.readme}
+          </ReactMarkdown>
         </div>
         <div className="info">
           <a href={this.props.link} target="_blank" rel="noreferrer">
